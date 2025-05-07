@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: anime-service
+
+  # Diminui o tempo de resposta das requisições e o uso de recursos com threads virtuais:
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  servlet:
+    # Add nome do app ao path: 
+    # context-path: /${spring.application.name}
+    context-path: /
+  error:
+    # Controlar a exibição do stack trace na resposta da requisição quando houver erro:
+    include-stacktrace: on-param
+  tomcat:
+    threads:
+      # nº clientes que podem fazer requisições ao mesmo tempo com 1 thread para cada:
+      max: 20
