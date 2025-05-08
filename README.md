@@ -20,3 +20,6 @@
   - Não idempotente: O resultado pode mudar com chamadas repetidas. O método POST é um exemplo disso.
 
 - Use o @JsonProperty quando precisar alterar o nome de uma propriedade Java para algo diferente no JSON, seja para garantir a conformidade com o formato de dados esperado ou para resolver conflitos de nomenclatura.
+
+- Separar as classes de domínio das classes de requisição/reposta (Padrão DTO).
+  - Alguns atributos são apenas para uso interno no sistema e não devem ser expostos aos usuários.
