@@ -5,9 +5,9 @@
   - Em outras palavras, é um componente “gerenciado” pelo framework, pronto para ser injetado (injected) onde for necessário.
   - Anotações que identificam a classe como um Bean: @Component, @Service, @Repository, ...
  
-- Versionar URLs (por ex. /api/v1/produtos) é a abordagem mais comum e recomendada quando você precisa garantir que clientes não sofram impactos ao migrar para novas funcionalidades.
+- Versionar URLs (ex.: /api/v1/produtos) é a abordagem mais comum e recomendada quando você precisa garantir que clientes não sofram impactos ao migrar para novas funcionalidades.
 - O nome que indica os recursos da API devem ser definidos como substantivos no plural e em letras minúsculas.
-- Utilizar recursos aninhados na URL para indicar relacionamentos (por ex. /projects/{projId}/tasks).
+- Utilizar recursos aninhados na URL para indicar relacionamentos (ex.: /projects/{projId}/tasks).
 
 - O uso de threads virtuais pode ser fundamental para diminuir o tempo de resposta da API em ambientes com muitas requisições simultâneas, fazendo com que não seja necessário o aumento do nº das threads de plataforma do servidor. (Utilizar Visual VM e POSTMAN para realizar os testes, visualizando o tempo de resposta e a memória da JVM).
 
@@ -22,3 +22,4 @@
 
 - Separar as classes de domínio das classes de requisição/reposta (Padrão DTO).
   - Alguns atributos são apenas para uso interno no sistema e não devem ser expostos aos usuários.
+  - Mudanças no domínio não influencia o contrato com os clientes (ex.: a adição de um novo atributo numa entidade, não deve mudar a forma da requisição diretamente).

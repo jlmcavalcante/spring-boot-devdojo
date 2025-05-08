@@ -6,7 +6,10 @@ spring:
   threads:
     virtual:
       enabled: true
-
+logging:
+  level:
+    # Logs apenas no pacote do projeto
+    '[com.jlmcavalcante]': debug
 server:
   servlet:
     # Add nome do app ao path: 

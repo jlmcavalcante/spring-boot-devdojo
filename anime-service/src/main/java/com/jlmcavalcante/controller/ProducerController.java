@@ -1,7 +1,6 @@
 package com.jlmcavalcante.controller;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jlmcavalcante.domain.Producer;
+import com.jlmcavalcante.mapper.ProducerMapper;
+import com.jlmcavalcante.request.ProducerPostRequest;
+import com.jlmcavalcante.response.ProducerPostResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +26,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("v1/producers")
 @Slf4j
 public class ProducerController {
+
+    private static final ProducerMapper MAPPER = ProducerMapper.INSTANCE;
+
     @GetMapping
     public List<Producer> listAll(@RequestParam(required = false) String name) {
         var producers = Producer.getProducers();
@@ -44,16 +49,19 @@ public class ProducerController {
     // Aprimorar os retornos através do ResponseEntity, onde podemos colocar informações adicionais. 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
     headers = "x-api-key=123")  
-    public ResponseEntity<Producer> save(@RequestBody Producer producer, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<ProducerPostResponse> save(@RequestBody ProducerPostRequest producerPostRequest, @RequestHeader HttpHeaders headers) {
         
         log.info("HEADERS DA REQUISIÇÃO: {}", headers);
-        
-        producer.setId(ThreadLocalRandom.current().nextLong(1000));
+
+        var producer = MAPPER.toProducer(producerPostRequest);
         Producer.getProducers().add(producer);
 
         var responseHeaders = new HttpHeaders();
         responseHeaders.add("Authorization", "My key");
 
-        return ResponseEntity.status(HttpStatus.CREATED).headers(responseHeaders).body(producer);
+    
+        var response = MAPPER.toProducerPostResponse(producer);
+
+        return ResponseEntity.status(HttpStatus.CREATED).headers(responseHeaders).body(response);
     }
 }
