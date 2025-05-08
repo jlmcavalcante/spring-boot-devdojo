@@ -1,11 +1,9 @@
 # Curso Spring Boot - Dev Dojo
 
 ## Anotações além do código
-- Bean --> Instância de objeto gerenciada pelo Spring.
-- Anotações que identificam a classe como um Bean:
-  - @Component
-  - @Service
-  - @Repository
+- Bean é qualquer objeto que o contêiner do Spring IoC (Inversion of Control) instancia, configura e gerencia durante o ciclo de vida da aplicação.
+  - Em outras palavras, é um componente “gerenciado” pelo framework, pronto para ser injetado (injected) onde for necessário.
+  - Anotações que identificam a classe como um Bean: @Component, @Service, @Repository, ...
  
 - Sempre versione as URLs das suas aplicações
 - O nome que indica os recursos da API devem ser definidos como objetivos no plural
