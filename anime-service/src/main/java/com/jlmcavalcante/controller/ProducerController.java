@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jlmcavalcante.domain.Producer;
 import com.jlmcavalcante.mapper.ProducerMapper;
 import com.jlmcavalcante.request.ProducerPostRequest;
+import com.jlmcavalcante.response.ProducerGetResponse;
 import com.jlmcavalcante.response.ProducerPostResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,17 +31,25 @@ public class ProducerController {
     private static final ProducerMapper MAPPER = ProducerMapper.INSTANCE;
 
     @GetMapping
-    public List<Producer> listAll(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<ProducerGetResponse>> listAll(@RequestParam(required = false) String name) {
+        log.debug("Request received to list all producers, param name {}", name);
+
         var producers = Producer.getProducers();
-        if(name != null) {
-            return producers.stream().filter(producer -> producer.getName().equals(name)).toList();
-        }
-        return producers;
+        var responseList = MAPPER.toProducerGetResponseList(producers);
+
+        if(name == null) return ResponseEntity.ok(responseList);
+
+        var responseFiltered = responseList.stream().filter(producerResponse -> producerResponse.getName().equalsIgnoreCase(name)).toList();
+        return ResponseEntity.ok(responseFiltered);
     }
     
     @GetMapping("{id}")
-    public Producer findById(@PathVariable Long id) {
-        return Producer.getProducers().stream().filter(producer -> producer.getId().equals(id)).findFirst().orElse(null);
+    public ResponseEntity<ProducerGetResponse> findById(@PathVariable Long id) {
+        log.debug("Request to find producer by id {}", id);
+
+        var response = Producer.getProducers().stream().filter(p -> p.getId().equals(id)).findFirst().map(MAPPER::toProducerGetResponse).orElse(null);
+
+        return ResponseEntity.ok(response);
     }
 
     // Definir o formato do dado que está sendo produzido ou recebido.

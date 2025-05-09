@@ -1,11 +1,14 @@
 package com.jlmcavalcante.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.jlmcavalcante.domain.Producer;
 import com.jlmcavalcante.request.ProducerPostRequest;
+import com.jlmcavalcante.response.ProducerGetResponse;
 import com.jlmcavalcante.response.ProducerPostResponse;
 
 // Consultas em: https://mapstruct.org/
@@ -19,4 +22,7 @@ public interface ProducerMapper {
     Producer toProducer(ProducerPostRequest postRequest);
 
     ProducerPostResponse toProducerPostResponse(Producer producer);
+
+    ProducerGetResponse toProducerGetResponse(Producer producer);
+    List<ProducerGetResponse> toProducerGetResponseList(List<Producer> producer);
 }
