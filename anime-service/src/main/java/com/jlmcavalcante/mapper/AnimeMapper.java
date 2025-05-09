@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import com.jlmcavalcante.domain.Anime;
 import com.jlmcavalcante.request.AnimePostRequest;
+import com.jlmcavalcante.request.AnimePutRequest;
 import com.jlmcavalcante.response.AnimeGetResponse;
 import com.jlmcavalcante.response.AnimePostResponse;
 
@@ -17,6 +18,7 @@ public interface AnimeMapper {
     
     @Mapping(target = "id", expression="java(java.util.concurrent.ThreadLocalRandom.current().nextLong(100_000))")
     Anime toAnime(AnimePostRequest postRequest);
+    Anime toAnime(AnimePutRequest putRequest);
     
     AnimePostResponse toAnimePostResponse(Anime anime);
 

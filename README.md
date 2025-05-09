@@ -23,3 +23,16 @@
 - Separar as classes de domínio das classes de requisição/reposta (Padrão DTO).
   - Alguns atributos são apenas para uso interno no sistema e não devem ser expostos aos usuários.
   - Mudanças no domínio não influencia o contrato com os clientes (ex.: a adição de um novo atributo numa entidade, não deve mudar a forma da requisição diretamente).
+
+- Documento que define o padrão da WEB: https://datatracker.ietf.org/doc/html/rfc7231.
+
+- PUT x PATCH:
+  - @PutMapping: Usado quando você quer atualizar todo o recurso. Quando você usa PUT, espera-se que o recurso seja totalmente substituído pela nova versão que está sendo enviada na requisição.
+  - @PatchMapping: Usado quando você quer atualizar somente algumas partes do recurso, sem substituir todo o objeto. O corpo da requisição normalmente contém apenas os campos que precisam ser modificados.
+
+- O padrão MVC (no spring) organiza o código em:
+  - Controller → Recebe e responde requisições.
+  - Service → Executa regras de negócio.
+  - Repository → Acessa o banco de dados.
+  - Model → Representa os dados da aplicação.
+  - A View, em APIs REST, é substituída por JSON/XML e geralmente consumida por um front-end.
